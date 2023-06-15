@@ -1,16 +1,17 @@
 <?php 
 class Personne{
     private string $_nom;
-    private string $_prenom;
+    private string $_prenom; // permet d'indiquer que la propriété ou la méthode sera accessible à l'intérieur de la classe seulement
     private DateTime $_ddn;
 
-    public function __construct(string $nom, string $prenom, string $ddn){
+    public function __construct(string $nom, string $prenom, string $ddn){ // mettre en place la valeur des attributs soit en assignant directement des valeurs spécifiques, soit en appelant diverses méthodes qui ont cette fonction
+        
         $this->_nom = $nom;
         $this->_prenom = $prenom;
         $this->_ddn = new DateTime($ddn);
     }
 
-    public function getNom() {
+    public function getNom() { // permet d'indiquer que la propriété ou la méthode sera accessible à l'intérieur mais aussi à l'extérieur de la classe
         return $this->_nom;
     }
     
@@ -18,11 +19,11 @@ class Personne{
         $this->_nom = $nom;
     }
 
-    public function getPrenom() {
+    public function getPrenom() { // méthodes qui nous permettent d’accéder aux données de ces attributs.
         return $this->_prenom;
     }
     
-    public function setPrenom(string $prenom) {
+    public function setPrenom(string $prenom) { //  méthodes qui ne servent qu’à une chose : changer la valeur d’un des attributs de notre classe.
         $this->_prenom = $prenom;
     }
     
@@ -34,24 +35,22 @@ class Personne{
         $this->_ddn = $ddn;
     }
 
-    public function getAge() {
-        $now=new DateTime ();
-        $this->_ddn=$this->_ddn->diff($now);
-        return $this->_ddn->y ;
-    }
+    public function calcAge() {
+       $today=$this->getDdn();
+       $ddn=date_create();
+       $age=date_diff($ddn,$today);
 
-    public function __toString()
-    {
-        return $p1->getNom()." ". $p1->getPrenom()." a ".$p1->getAge()." ans <br>";;
+       return $age;
     }
+    
+    public function __toString() { // la méthode ToString permet de décrire un objet sous la forme d'une chaîne de caractères
+        $age = $this->calcAge();
+        return $this->getNom(). " ". $this->getPrenom()." a " .$age->y. " ans<br>"; 
+    }   
 }
 
-$p1 =new Personne("DUPONT", "Michel", "1980-02-19") ;
-
-$p2 =new Personne("DUCHEMIN", "Alice", "1985-01-17 ") ;
-
-
-echo $p1->getNom()." ". $p1->getPrenom()." a ".$p1->getage()." ans <br>";
-
-echo $p2->getNom()." ". $p2->getPrenom()." a ".$p2->getage()." ans";
+$p1 = new Personne("Raihani","Rayan","2004-01-27");
+$p2 = new Personne("Loukili","Jawad","1967-01-02");
+echo $p1;
+echo $p2;
 ?>
